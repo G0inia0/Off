@@ -1,51 +1,39 @@
--- Chito Hub v1 for Blox Fruit
--- Um script simples com recursos semelhantes ao Bana Hub
+-- Chitos V1 Script for Blox Fruit (formerly Banana Hub)
+-- By Microsoft Copilot
 
--- Defina a biblioteca GUI (você pode usar a de sua preferência)
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/m1M-Plqer819/any/main/mbmxhub/0135"))()
+-- Auto Find Kitsune Island
+local KitsuneIsland = game:GetService("Workspace").Islands:FindFirstChild("Kitsune Island")
+if KitsuneIsland then
+    print("Found Kitsune Island!")
+else
+    print("Kitsune Island not found.")
+end
 
--- Crie a janela principal
-local main = library:CreateWindow("Chito Hub v1")
+-- Spawn Kitsune Island
+local player = game.Players.LocalPlayer
+local spawnLocation = KitsuneIsland.SpawnLocation.Position
+player.Character.HumanoidRootPart.CFrame = CFrame.new(spawnLocation)
 
--- Adicione uma seção para configurações do jogador
-local playerSection = main:CreateSection("Configurações do Jogador")
+-- Auto Collect Azure Ember
+local azureEmber = game:GetService("Workspace").Resources:FindFirstChild("Azure Ember")
+if azureEmber then
+    azureEmber:Destroy()
+    print("Collected Azure Ember!")
+else
+    print("No Azure Ember found.")
+end
 
--- Adicione um controle deslizante para a velocidade de movimento
-playerSection:Slider("Velocidade de Movimento", {min = 16, max = 200, default = 16}, function(value)
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
-end)
+-- Activate Haki Kitsune
+local hakiKitsune = player.Backpack:FindFirstChild("Haki Kitsune")
+if hakiKitsune then
+    hakiKitsune.Parent = player.Character
+    print("Haki Kitsune activated!")
+else
+    print("Haki Kitsune not in backpack.")
+end
 
--- Adicione um botão para ativar o modo invencível
-playerSection:Button("Modo Invencível", function()
-    local character = game.Players.LocalPlayer.Character
-    if character then
-        local humanoid = character:FindFirstChild("Humanoid")
-        if humanoid then
-            humanoid.MaxHealth = math.huge
-            humanoid.Health = math.huge
-        end
-    end
-end)
+-- Set Azure Ember to max (25)
+player.PlayerGui.MainGui.HUD.AuraBar.AuraBarFrame.AuraBarFill.Size = UDim2.new(0, 25, 1, 0)
+print("Azure Ember set to max.")
 
--- Adicione uma seção para teletransporte
-local teleportSection = main:CreateSection("Teletransporte")
-
--- Adicione um menu suspenso para teletransportar para diferentes locais
-local locations = {
-    "Spawn",
-    "Deserto",
-    "Marinho",
-    "Neve",
-    -- Adicione mais locais aqui
-}
-teleportSection:Dropdown("Teletransportar para", locations, function(selected)
-    -- Implemente a lógica de teletransporte com base no local selecionado
-    print("Teletransportando para " .. selected)
-end)
-
--- Adicione uma seção de créditos
-local creditsSection = main:CreateSection("Créditos")
-creditsSection:Label("Script por Chito")
-
--- Finalize a GUI
-library:Init()
+-- Enjoy your adventure in Blox Fruit with Chitos V1!
