@@ -1,41 +1,51 @@
-# Compiled Lua sources
-luac.out
+-- Chito Hub v1 for Blox Fruit
+-- Um script simples com recursos semelhantes ao Bana Hub
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+-- Defina a biblioteca GUI (você pode usar a de sua preferência)
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/m1M-Plqer819/any/main/mbmxhub/0135"))()
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+-- Crie a janela principal
+local main = library:CreateWindow("Chito Hub v1")
 
-# Precompiled Headers
-*.gch
-*.pch
+-- Adicione uma seção para configurações do jogador
+local playerSection = main:CreateSection("Configurações do Jogador")
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
+-- Adicione um controle deslizante para a velocidade de movimento
+playerSection:Slider("Velocidade de Movimento", {min = 16, max = 200, default = 16}, function(value)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+end)
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+-- Adicione um botão para ativar o modo invencível
+playerSection:Button("Modo Invencível", function()
+    local character = game.Players.LocalPlayer.Character
+    if character then
+        local humanoid = character:FindFirstChild("Humanoid")
+        if humanoid then
+            humanoid.MaxHealth = math.huge
+            humanoid.Health = math.huge
+        end
+    end
+end)
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+-- Adicione uma seção para teletransporte
+local teleportSection = main:CreateSection("Teletransporte")
 
+-- Adicione um menu suspenso para teletransportar para diferentes locais
+local locations = {
+    "Spawn",
+    "Deserto",
+    "Marinho",
+    "Neve",
+    -- Adicione mais locais aqui
+}
+teleportSection:Dropdown("Teletransportar para", locations, function(selected)
+    -- Implemente a lógica de teletransporte com base no local selecionado
+    print("Teletransportando para " .. selected)
+end)
+
+-- Adicione uma seção de créditos
+local creditsSection = main:CreateSection("Créditos")
+creditsSection:Label("Script por Chito")
+
+-- Finalize a GUI
+library:Init()
